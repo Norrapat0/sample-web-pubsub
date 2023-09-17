@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
 public class SampleProducerController {
 	
@@ -25,6 +26,11 @@ public class SampleProducerController {
 		
 		return new ResponseEntity<>("Message sent.", HttpStatus.OK);
 	}
-
+	@GetMapping("/greet/{name}")
+	public ResponseEntity<String> greet(@PathVariable String name)
+	{
+		kafkaTemplate.send("greet",name);
+		return new ResponseEntity<>("Greeting "+name,HttpStatus.OK);
+	}
 
 }
